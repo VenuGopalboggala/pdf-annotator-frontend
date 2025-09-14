@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# PDF Annotator - Backend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the backend server for the PDF Annotator application, built with Node.js, Express, and MongoDB. It handles user authentication, PDF file uploads, and saving highlight data.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+* **User Authentication:** JWT-based registration and login system.
+* **PDF Management:** Upload, list, and delete PDF files.
+* **Highlight Persistence:** Save and retrieve text highlight data for each PDF.
+* **Secure Storage:** Stores PDF files locally on the server and metadata in MongoDB.
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* **Node.js**
+* **Express**
+* **MongoDB** (with Mongoose)
+* **JSON Web Token (JWT)** for authentication
+* **Multer** for file uploads
+* **bcryptjs** for password hashing
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Setup and Installation
 
-### `npm test`
+To run this server locally, follow these steps:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1.  **Clone the repository:**
+    ```bash
+    git clone <your-repo-url>
+    cd pdf-annotator-backend
+    ```
 
-### `npm run build`
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3.  **Set up environment variables:**
+    Create a `.env` file in the root of the project and add the following variables:
+    ```env
+    MONGO_URI="your_mongodb_connection_string"
+    JWT_SECRET="your_super_secret_jwt_key"
+    PORT=5000
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4.  **Start the server:**
+    ```bash
+    node server.js
+    ```
+    The server will be running on `http://localhost:5000`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## API Endpoints
 
-### `npm run eject`
+A brief overview of the available API routes:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* `POST /api/auth/register`: Register a new user.
+* `POST /api/auth/login`: Log in a user and get a token.
+* `POST /api/pdfs/upload`: Upload a new PDF file (protected).
+* `GET /api/pdfs`: Get a list of all PDFs for the logged-in user (protected).
+* `DELETE /api/pdfs/:uuid`: Delete a specific PDF (protected).
+* `POST /api/highlights`: Create a new highlight (protected).
+* `GET /api/highlights/:pdfUuid`: Get all highlights for a specific PDF (protected).
